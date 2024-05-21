@@ -13,15 +13,15 @@ const getAllProductsFromDB = async () => {
 };
 
 const getSingleProductsFromDB = async (id: string) => {
-  // const result = await Product.findOne({ _id: id });
-  const result = await Product.aggregate([
-    { $match: {id:id}}
-  ])
+  const result = await Product.findById( id );
+  // const result = await Product.aggregate([
+  //   { $match: {id:id}}
+  // ])
   return result;
 };
 
 const deleteProductsFromDB = async (id: string) => {
-  const result = await Product.updateOne({ id }, {isDeleted: true});
+  const result = await Product.updateOne({ _id: id }, {isDeleted: true});
   return result;
 };
 

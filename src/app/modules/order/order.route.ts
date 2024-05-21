@@ -1,9 +1,10 @@
 import express from "express";
+import { OrderControllers } from "./order.controller";
 
 const router = express.Router();
 
 // route will call controller function
-router.post("/");
-router.get("/");
+router.post("/", OrderControllers.createOrder);
+router.get("/", OrderControllers.getAllOrders);
 
 export const OrderRoutes = router;
