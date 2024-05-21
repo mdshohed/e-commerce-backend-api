@@ -9,11 +9,7 @@ const createOrderIntoDB = async (OrderData: TOrder) => {
 
 const getAllOrdersOrSearchByEmailFromDB = async (email: string , hasQuery: boolean) => {
   if(hasQuery){
-    const result = await Order.find({
-      $or: [
-        { email: { $regex: email } },
-      ],
-    });
+    const result = await Order.find( {email: email} );
     return result; 
   }
   else {
