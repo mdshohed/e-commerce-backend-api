@@ -1,9 +1,9 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import { productControllers } from "./product.controller";
 
 const router = express.Router();
 
-// route will call controller function
+// Route will call controller function
 router.post("/", productControllers.createProduct);
 router.get("/", productControllers.getAllProductsOrSearchProducts);
 router.get("/:productId", productControllers.getSingleProducts);

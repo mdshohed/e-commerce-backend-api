@@ -1,38 +1,36 @@
 import { Product } from "./product.model";
 import { TProduct } from "./product.interface";
 
-
 const createProductIntoDB = async (ProductData: TProduct) => {
   const result = await Product.create(ProductData); // built in instance method
   return result;
 };
 
-const getAllProductsOrSearchProductFromDB = async (searchTerm: string , hasQuery: boolean) => {
-  if(hasQuery){
+const getAllProductsOrSearchProductFromDB = async (
+  searchTerm: string,
+  hasQuery: boolean,
+) => {
+  if (hasQuery) {
     const result = await Product.find({
       $or: [
-        { name: { $regex: searchTerm, $options: 'i' } },
+        { name: { $regex: searchTerm, $options: "i" } },
         { description: { $regex: searchTerm } },
         { category: { $regex: searchTerm } },
       ],
     });
-    return result; 
-  }
-  else{
+    return result;
+  } else {
     const result = await Product.find();
     return result;
   }
 };
 
 const getSingleProductsFromDB = async (id: string) => {
-  const result = await Product.findById( id );
-  // const result = await Product.aggregate([
-  //   { $match: {id:id}}
-  // ])
+  const result = await Product.findById(id);
   return result;
 };
 
-// update function 
+// update function
 const updateProductInDB = async (id: string, updateData: Partial<TProduct>) => {
   const result = await Product.findByIdAndUpdate(id, updateData, { new: true });
   return result;
@@ -50,5 +48,5 @@ export const ProductServices = {
   getAllProductsOrSearchProductFromDB,
   getSingleProductsFromDB,
   updateProductInDB,
-  deleteProductsFromDB
+  deleteProductsFromDB,
 };

@@ -3,22 +3,21 @@ import { TOrder } from "./order.interface";
 
 const orderSchema = new Schema<TOrder>({
   email: {
-    type: String, 
-    required: [true, 'Name is required']
+    type: String,
+    required: [true, "Name is required"],
   },
   productId: {
-    type: String, 
-    required: [true, 'ProductId is required'],
+    type: String,
+    required: [true, "ProductId is required"],
   },
   price: {
-    type: Number, 
-    required: [true, 'Price is required'],
+    type: Number,
+    required: [true, "Price is required"],
   },
   quantity: {
-    type: Number, 
-    required: [true, 'Quantity is required'],
+    type: Number,
+    required: [true, "Quantity is required"],
   },
 });
 
-
-export const Order = model<TOrder>('Order', orderSchema);
+export const Order = model<TOrder>("Order", orderSchema);

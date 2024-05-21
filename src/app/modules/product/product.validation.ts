@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 // Variant schema
 const VariantValidationSchema = z.object({
@@ -8,7 +8,10 @@ const VariantValidationSchema = z.object({
 
 // Inventory schema
 const InventoryValidationSchema = z.object({
-  quantity: z.number().int().nonnegative({ message: "Quantity must be a non-negative integer" }),
+  quantity: z
+    .number()
+    .int()
+    .nonnegative({ message: "Quantity must be a non-negative integer" }),
   inStock: z.boolean({ required_error: "InStock is required" }),
 });
 
@@ -16,17 +19,18 @@ const InventoryValidationSchema = z.object({
 const productValidationSchema = z.object({
   name: z.string().nonempty({ message: "Name is required" }),
   description: z.string().nonempty({ message: "Description is required" }),
-  price: z.number().nonnegative({ message: "Price must be a non-negative number" }),
+  price: z
+    .number()
+    .nonnegative({ message: "Price must be a non-negative number" }),
   category: z.string().nonempty({ message: "Category is required" }),
   tags: z.array(z.string()).nonempty({ message: "Tags are required" }),
-  variants: z.array(VariantValidationSchema).nonempty({ message: "Variants are required" }),
+  variants: z
+    .array(VariantValidationSchema)
+    .nonempty({ message: "Variants are required" }),
   inventory: InventoryValidationSchema,
   // isDeleted: z.boolean()
 });
 
 const partialProductValidationSchema = productValidationSchema.partial();
 
-export {
-  productValidationSchema, 
-  partialProductValidationSchema
-};
+export { productValidationSchema, partialProductValidationSchema };

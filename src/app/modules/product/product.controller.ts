@@ -35,25 +35,26 @@ const getAllProductsOrSearchProducts = async (req: Request, res: Response) => {
   try {
     const hasQuery = Object.keys(req.query).length > 0;
     const searchTerm = req.query.searchTerm as string;
-    
-    const result = await ProductServices.getAllProductsOrSearchProductFromDB(searchTerm, hasQuery);
-    if(hasQuery){
-      if(searchTerm){
+
+    const result = await ProductServices.getAllProductsOrSearchProductFromDB(
+      searchTerm,
+      hasQuery,
+    );
+    if (hasQuery) {
+      if (searchTerm) {
         res.status(200).json({
           success: false,
           message: `Products matching search term '${searchTerm}' fetched successfully!`,
-          data: result, 
-      })
-      } 
-      else{
+          data: result,
+        });
+      } else {
         res.status(400).json({
-            success: false,
-            message: 'Invalid query parameter',
-            data: [], 
-        })
+          success: false,
+          message: "Invalid query parameter",
+          data: [],
+        });
       }
-    }
-    else{
+    } else {
       res.status(200).json({
         success: true,
         message: "Products fetched successfully!",
@@ -61,7 +62,6 @@ const getAllProductsOrSearchProducts = async (req: Request, res: Response) => {
       });
     }
     //send response
-    
   } catch (err: any) {
     res.status(500).json({
       success: false,
@@ -97,7 +97,7 @@ const UpdateProducts = async (req: Request, res: Response) => {
     const zodParseData = partialProductValidationSchema.parse(productData);
     const result = await ProductServices.updateProductInDB(
       productId,
-      zodParseData
+      zodParseData,
     );
     //send response
     res.status(200).json({
