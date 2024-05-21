@@ -1,9 +1,32 @@
 import { Order } from "./order.model";
 import { TOrder } from "./order.interface";
+import { Product } from "../product/product.model";
 
 
 const createOrderIntoDB = async (OrderData: TOrder) => {
-  const result = await Order.create(OrderData); 
+
+  // const result = await Product.findById(productId);
+  // if(result){
+  //   const prevQuantity = result.inventory.quantity;
+  //   if( prevQuantity >= quantity && result.inventory.inStock ) {
+  //     const result = await Order.create(OrderData);
+  //     return result; 
+  //   }
+  //   else {
+      
+  //   } 
+  // }
+  // const result = await Order.aggregate([
+  //   { 
+  //     $lookup: {
+  //       from: "Products",
+  //       localField: "productId",
+  //       foreignField: "_id",
+  //       as: "orderProduct"
+  //     }
+  //   }
+  // ])
+  // const result = await Order.create(OrderData); 
   return result;
 };
 

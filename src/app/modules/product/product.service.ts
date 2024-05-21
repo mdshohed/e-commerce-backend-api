@@ -8,22 +8,21 @@ const createProductIntoDB = async (ProductData: TProduct) => {
 };
 
 const getAllProductsOrSearchProductFromDB = async (searchTerm: string , hasQuery: boolean) => {
-  let result
   if(hasQuery){
-    result = await Product.find({
+    const result = await Product.find({
       $or: [
         { name: { $regex: searchTerm, $options: 'i' } },
-        { description: { $regex: searchTerm, $options: 'i' } },
-        { category: { $regex: searchTerm, $options: 'i' } },
+        { description: { $regex: searchTerm } },
+        { category: { $regex: searchTerm } },
       ],
     });
+    return result; 
   }
   else{
-    result = await Product.find();
+    const result = await Product.find();
+    return result;
   }
-  return result;
 };
-
 
 const getSingleProductsFromDB = async (id: string) => {
   const result = await Product.findById( id );
