@@ -8,4 +8,3 @@
 
 ## How to live this project: 
 - To live this project i used vercel CLI
-- 
