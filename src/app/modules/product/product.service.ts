@@ -7,10 +7,23 @@ const createProductIntoDB = async (ProductData: TProduct) => {
   return result;
 };
 
-const getAllProductsFromDB = async () => {
-  const result = await Product.find();
+const getAllProductsOrSearchProductFromDB = async (searchTerm: string , hasQuery: boolean) => {
+  let result
+  if(hasQuery){
+    result = await Product.find({
+      $or: [
+        { name: { $regex: searchTerm, $options: 'i' } },
+        { description: { $regex: searchTerm, $options: 'i' } },
+        { category: { $regex: searchTerm, $options: 'i' } },
+      ],
+    });
+  }
+  else{
+    result = await Product.find();
+  }
   return result;
 };
+
 
 const getSingleProductsFromDB = async (id: string) => {
   const result = await Product.findById( id );
@@ -20,14 +33,23 @@ const getSingleProductsFromDB = async (id: string) => {
   return result;
 };
 
+// update function 
+const updateProductInDB = async (id: string, updateData: Partial<TProduct>) => {
+  const result = await Product.findByIdAndUpdate(id, updateData, { new: true });
+  return result;
+};
+
+// delete function
 const deleteProductsFromDB = async (id: string) => {
-  const result = await Product.updateOne({ _id: id }, {isDeleted: true});
+  // const result = await Product.updateOne({ _id: id }, {isDeleted: true});
+  const result = await Product.deleteOne({ _id: id });
   return result;
 };
 
 export const ProductServices = {
   createProductIntoDB,
-  getAllProductsFromDB,
+  getAllProductsOrSearchProductFromDB,
   getSingleProductsFromDB,
+  updateProductInDB,
   deleteProductsFromDB
 };

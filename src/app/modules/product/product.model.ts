@@ -41,10 +41,10 @@ const productSchema = new Schema<TProduct>({
     type: InventorySchema, 
     required: [true, 'Inventory is required'],
   },
-  isDeleted: {
-    type: Boolean,
-    default: false
-  }
+  // isDeleted: {
+  //   type: Boolean,
+  //   default: false
+  // }
 });
 // ,{
 //   toJSON:{

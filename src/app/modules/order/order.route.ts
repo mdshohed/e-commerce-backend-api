@@ -5,6 +5,6 @@ const router = express.Router();
 
 // route will call controller function
 router.post("/", OrderControllers.createOrder);
-router.get("/", OrderControllers.getAllOrders);
+router.get("/", OrderControllers.getAllOrdersOrSearchByEmail);
 
 export const OrderRoutes = router;

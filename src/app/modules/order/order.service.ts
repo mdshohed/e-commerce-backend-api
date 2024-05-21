@@ -7,9 +7,19 @@ const createOrderIntoDB = async (OrderData: TOrder) => {
   return result;
 };
 
-const getAllOrdersFromDB = async () => {
-  const result = await Order.find();
-  return result;
+const getAllOrdersOrSearchByEmailFromDB = async (email: string , hasQuery: boolean) => {
+  if(hasQuery){
+    const result = await Order.find({
+      $or: [
+        { email: { $regex: email } },
+      ],
+    });
+    return result; 
+  }
+  else {
+    const result = await Order.find();
+    return result;
+  }
 };
 
 const getSingleOrdersFromDB = async (id: string) => {
@@ -27,7 +37,7 @@ const deleteOrdersFromDB = async (id: string) => {
 
 export const OrderServices = {
   createOrderIntoDB,
-  getAllOrdersFromDB,
+  getAllOrdersOrSearchByEmailFromDB,
   getSingleOrdersFromDB,
   deleteOrdersFromDB
 };

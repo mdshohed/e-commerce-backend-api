@@ -26,15 +26,30 @@ const createOrder = async (req: Request, res: Response) => {
     });
   }
 };
-const getAllOrders = async (req: Request, res: Response) => {
+
+const getAllOrdersOrSearchByEmail = async (req: Request, res: Response) => {
   try {
-    const result = await OrderServices.getAllOrdersFromDB();
+    const hasQuery = Object.keys(req.query).length > 0;
+    const email = req.query.email as string ;
+    
+    const result = await OrderServices.getAllOrdersOrSearchByEmailFromDB(email, hasQuery);
     //send response
-    res.status(200).json({
-      success: true,
-      message: "Orders fetched successfully!",
-      data: result,
-    });
+    if(hasQuery){
+      console.log("OrderProduct", result);
+      
+      res.status(200).json({
+        success: true,
+        message: "Orders fetched successfully for user email!",
+        data: result,
+      });
+    }
+    else{
+      res.status(200).json({
+        success: true,
+        message: "Orders fetched successfully!",
+        data: result,
+      });
+    }
   } catch (err: any) {
     res.status(500).json({
       success: false,
@@ -43,29 +58,8 @@ const getAllOrders = async (req: Request, res: Response) => {
     });
   }
 };
-const getSingleOrders = async (req: Request, res: Response) => {
-  try {
-    const { OrderId } = req.params;
-    const result = await OrderServices.getSingleOrdersFromDB(OrderId);
-    //send response
-    res.status(200).json({
-      success: true,
-      message: "Order fetched successfully!",
-      data: result,
-    });
-  } catch (err: any) {
-    res.status(500).json({
-      success: false,
-      message: "Something went wrong",
-      data: err,
-    });
-  }
-};
-
-
 
 export const OrderControllers = {
   createOrder,
-  getAllOrders,
-  getSingleOrders,
+  getAllOrdersOrSearchByEmail,
 };

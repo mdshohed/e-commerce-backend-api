@@ -13,8 +13,8 @@ app.use(cors())
 app.use('/api/products', ProductRoutes); 
 app.use('/api/orders', OrderRoutes); 
 
-app.get( '*' ,( req: Request, res: Response) => {
-  res.status(500).json({
+app.all( '*' ,( req: Request, res: Response) => {
+  res.status(404).json({
     "success": false,
     "message": "Route not found"
   })
