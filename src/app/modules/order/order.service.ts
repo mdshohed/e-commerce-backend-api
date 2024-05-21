@@ -5,28 +5,7 @@ import { Product } from "../product/product.model";
 
 const createOrderIntoDB = async (OrderData: TOrder) => {
 
-  // const result = await Product.findById(productId);
-  // if(result){
-  //   const prevQuantity = result.inventory.quantity;
-  //   if( prevQuantity >= quantity && result.inventory.inStock ) {
-  //     const result = await Order.create(OrderData);
-  //     return result; 
-  //   }
-  //   else {
-      
-  //   } 
-  // }
-  // const result = await Order.aggregate([
-  //   { 
-  //     $lookup: {
-  //       from: "Products",
-  //       localField: "productId",
-  //       foreignField: "_id",
-  //       as: "orderProduct"
-  //     }
-  //   }
-  // ])
-  // const result = await Order.create(OrderData); 
+  const result = await Order.create(OrderData); 
   return result;
 };
 
@@ -43,9 +22,6 @@ const getAllOrdersOrSearchByEmailFromDB = async (email: string , hasQuery: boole
 
 const getSingleOrdersFromDB = async (id: string) => {
   const result = await Order.findById( id );
-  // const result = await Order.aggregate([
-  //   { $match: {id:id}}
-  // ])
   return result;
 };
 

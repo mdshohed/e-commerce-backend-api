@@ -15,10 +15,15 @@ const createOrder = async (req: Request, res: Response) => {
     const zodOrderParseData = OrderValidationSchema.parse(OrderData);
 
     const findProduct = await ProductServices.getSingleProductsFromDB(productId);
+
+    console.log("findProduct", findProduct);
+    
     if(findProduct){
 
       const prevQuantity = findProduct.inventory.quantity;
-      if( prevQuantity >= quantity && findProduct.inventory.inStock ) {
+      console.log(prevQuantity, findProduct.inventory.inStock);
+      
+      if( prevQuantity >= quantity && prevQuantity>0 ) {
         const data = {
           inventory: {
             quantity: prevQuantity - quantity,
@@ -28,7 +33,7 @@ const createOrder = async (req: Request, res: Response) => {
         const zodProductParseData = partialProductValidationSchema.parse(data);
         await ProductServices.updateProductInDB( productId, zodProductParseData);
         const result = await OrderServices.createOrderIntoDB(zodOrderParseData);
-        
+
         //send response
         res.status(200).json({
           success: true,
