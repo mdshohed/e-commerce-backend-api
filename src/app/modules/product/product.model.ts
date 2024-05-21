@@ -34,7 +34,7 @@ const productSchema = new Schema<TProduct>({
     required: [true, 'Tags is required'],
   },
   variants: {
-    type: VariantSchema, 
+    type: [VariantSchema], 
     required: [true, 'Variants is required'],
   },
   inventory: {
@@ -49,4 +49,4 @@ const productSchema = new Schema<TProduct>({
 // }
 
 
-export const Product = model('Product', productSchema);
+export const Product = model<TProduct>('Product', productSchema);

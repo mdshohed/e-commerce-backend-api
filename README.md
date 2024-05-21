@@ -24,3 +24,8 @@ run ts and js file:
 or we can use:
 "start:prod": "node ./dist/server.js",
 "start:dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+
+
+
+validation: 
+npm i zod
