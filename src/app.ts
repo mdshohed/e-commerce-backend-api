@@ -12,7 +12,7 @@ app.use(cors());
 // application routes
 app.use("/api/products", ProductRoutes);
 app.use("/api/orders", OrderRoutes);
-app.use(cors({ origin: ["http://localhost:3000", "http://localhost:3001"] }));
+app.use(cors({ origin: ["http://localhost:3000", "http://localhost:3001", "http://localhost:3002", "*"] }));
 
 
 app.get("/", (req: Request, res: Response) => {
