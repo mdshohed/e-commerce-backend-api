@@ -12,8 +12,10 @@ app.use(cors());
 // application routes
 app.use("/api/products", ProductRoutes);
 app.use("/api/orders", OrderRoutes);
-app.use(cors({ origin: "http://localhost:3000" }));
-
+app.use(cors({
+  origin: '*', 
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+}));
 
 app.get("/", (req: Request, res: Response) => {
   res.status(404).json({
